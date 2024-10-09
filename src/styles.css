@@ -1,0 +1,25 @@
+
+body{
+  background-color: rgb(14, 13, 13);
+  overflow: hidden;
+}
+
+.content {
+  background-color: rgb(14, 13, 13);
+  color: white;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  font-size: 0.8rem;
+  min-width: 320px;
+}
+
+@media only screen and (max-height: 600px){
+  body{
+    overflow: hidden;
+  }
+}
+
+@media only screen and (max-width: 800px) {
+  body {
+    overflow: auto;
+  }
+}

@@ -1,0 +1,77 @@
+
+
+<div class="header-container">
+  <div class="logo-div" (click)="login()">
+    <svg class="logo-img">
+      <path d="M27.9727 3.12324C27.6435 1.89323 26.6768 0.926623 25.4468 0.597366C23.2197 2.24288e-07 14.285 0 14.285 0C14.285 0 5.35042 2.24288e-07 3.12323 0.597366C1.89323 0.926623 0.926623 1.89323 0.597366 3.12324C2.24288e-07 5.35042 0 10 0 10C0 10 2.24288e-07 14.6496 0.597366 16.8768C0.926623 18.1068 1.89323 19.0734 3.12323 19.4026C5.35042 20 14.285 20 14.285 20C14.285 20 23.2197 20 25.4468 19.4026C26.6768 19.0734 27.6435 18.1068 27.9727 16.8768C28.5701 14.6496 28.5701 10 28.5701 10C28.5701 10 28.5677 5.35042 27.9727 3.12324Z" fill="#FF0000"></path>
+      <path d="M11.4253 14.2854L18.8477 10.0004L11.4253 5.71533V14.2854Z" fill="white"></path>
+    </svg>
+    <span>WhoTube</span>
+  </div>
+  <div class="topsearch-container">
+    <button class="big-red-top-button home-btn" (click)="home()">Home</button>
+    <button class="big-red-top-button login-btn" (click)="login()" [hidden]="auth">Login</button>
+    <button class="big-red-top-button" (click)="getPlaylistItems()">Related Vids</button>
+    <div class="search-bar-div">
+      <input #searchBar type="text" class="search-bar" [(ngModel)]="searchTerm" (keypress)="onSearchKeyPress($event)" placeholder="Search" />
+      <div class="search-icon-div" (click)="searchVideos()">
+        <svg class="search-icon" xmlns="http://www.w3.org/2000/svg" fill="currentColor" focusable="false" aria-hidden="true">
+            <path clip-rule="evenodd"
+              d="M16.296 16.996a8 8 0 11.707-.708l3.909 3.91-.707.707-3.909-3.909zM18 11a7 7 0 00-14 0 7 7 0 1014 0z"
+              fill-rule="evenodd">
+          </path>
+        </svg>
+      </div>
+    </div>
+    <div class="vid-visibility-div">
+      <label for="showVideoCheckbox">Video Visible</label>
+      <input id="showVideoCheckbox" type="checkbox" [checked]="showPlayer" (click)="showVideoChecked($event)"/>
+    </div>
+  </div>
+  <div></div>
+  <hr class="divider">
+</div>
+
+
+<div class="parent-container">
+  <div id="search-container" class="search-container">
+    <div class="overlay" *ngIf="showBusyOverlay">
+        <div class="spinner"></div>
+      </div>
+
+    <div id="playlist-container" class="playlist-container">
+      <!-- <div class="playlist-header">
+        <img *ngIf="playlist.videos.length > 0" [src]="playlist.thumbnailUrl" alt="Playlist Thumbnail" class="playlist-thumbnail">
+        <h2 class="playlist-title">{{ playlist.title }}</h2>
+      </div> -->
+      <div class="search-results-header-div">
+        <p>{{searchResultHeader}}</p>
+        <hr class="divider">
+      </div>
+
+
+
+      <div id="video-container" class="video-container" *ngFor="let video of playlist.videos" [ngClass]="currentVideo == video ? 'current-video' : ''">
+        <div class="video-thumbnail" (click)="loadVideo(video)">
+          <img [src]="video.thumb_url" alt="Video Thumbnail">
+        </div>
+        <div class="video-info" (click)="loadVideo(video)">
+          <h3>{{ video.title }}</h3>
+          <h3 class="channel-title">{{ video.channel_title }}</h3>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="player-container" class="player-container resizer" [ngClass]="{'playerVisible' : showPlayer, 'playerInvisible': !showPlayer}">
+    <div id="yt" class="video-iframe resized" ></div>
+    <div id="currentVideo" class="current-video-details-div" name="currentVideo">
+      <p>{{currentVideo.title}}</p>
+      <div class="current-video-info-div">
+        <img class="current-video-thumb" [src]="currentVideo.channel_thumb_url" alt="">
+        <span class="channel-title">{{currentVideo.channel_title}}</span>
+      </div>
+    </div>
+  </div>
+</div>
+
